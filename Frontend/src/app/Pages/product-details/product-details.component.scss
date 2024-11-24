@@ -1,0 +1,312 @@
+.container-detailsproduct {
+  .product-details {
+    border-radius: 12px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+
+    .section-title {
+      font-size: 2rem;
+      color: #4A90E2;
+      position: relative;
+      display: inline-block;
+      margin-bottom: 30px;
+      margin-top: 50px;
+
+      &::after {
+        content: '';
+        display: block;
+        width: 60px;
+        height: 4px;
+        background: #ff4081;
+        margin: 10px auto 0;
+      }
+    }
+
+    .product-info {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      color: #555;
+      margin-bottom: 30px;
+
+      .icon {
+        font-size: 1.5rem;
+        margin-right: 10px;
+        color: #4A90E2;
+      }
+
+      p {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      }
+    }
+  }
+
+  // Partie filtre 
+ .filter-container {
+    flex: 1;
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    gap: 20px;
+}
+
+.filter-title {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #333;
+    font-weight: bold; /* Met en gras pour plus de présence */
+}
+
+.chip-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.filter-chip {
+    padding: 10px 16px;                  /* Espacement intérieur ajusté */
+    border-radius: 25px;                 /* Coins arrondis plus prononcés */
+    background-color: #e0e0e0;           /* Couleur de fond par défaut */
+    color: #333;                         /* Couleur du texte */
+    cursor: pointer;                     /* Curseur en pointeur */
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Transitions douces */
+    font-size: 14px;                     /* Taille de la police */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombre légère par défaut */
+    border: 2px solid transparent;        /* Bordure transparente pour le focus */
+    position: relative;                   /* Position pour les effets de pulsation */
+    overflow: hidden;                     /* Pour masquer l'effet de pulsation à l'extérieur */
+}
+
+.filter-chip:hover {
+    background-color: #d0d0d0;            /* Couleur de fond au survol */
+    color: #3f51b5;                       /* Couleur du texte au survol */
+    transform: scale(1.05);               /* Agrandissement au survol */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Ombre plus prononcée au survol */
+}
+
+/* Ajout d'un effet de pulsation au chip */
+.filter-chip:before {
+    content: '';                           /* Pour créer l'effet de pulsation */
+    position: absolute;                    /* Positionnement absolu */
+    top: 50%;                              /* Centré verticalement */
+    left: 50%;                             /* Centré horizontalement */
+    width: 300%;                           /* Largeur plus grande pour l'effet de pulsation */
+    height: 300%;                          /* Hauteur plus grande pour l'effet de pulsation */
+    background-color: rgba(63, 81, 181, 0.2); /* Couleur bleue semi-transparente */
+    border-radius: 50%;                   /* Forme circulaire */
+    transform: translate(-50%, -50%) scale(0); /* Initialement caché */
+    transition: transform 0.5s ease;      /* Transition douce */
+    z-index: 0;                            /* Passer derrière le texte du chip */
+}
+
+.filter-chip:hover:before {
+    transform: translate(-50%, -50%) scale(1); /* Activer l'effet de pulsation */
+}
+
+.filter-chip.selected {
+    background-color: #3f51b5;            /* Couleur de fond pour le chip sélectionné */
+    color: white;                         /* Couleur du texte pour le chip sélectionné */
+    box-shadow: 0 4px 10px rgba(63, 81, 181, 0.5); /* Ombre pour le chip sélectionné */
+}
+
+.filter-chip.selected:hover {
+    background-color: #2c387e;            /* Couleur plus foncée pour le chip sélectionné au survol */
+}
+
+.filtre-edit-cont {
+    display: flex;
+    justify-content: space-between; 
+    align-items: flex-start;
+    width: 100%;   
+}
+
+
+  // All
+    .edit-buttons {
+      justify-content: flex-end;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap; 
+      padding: 20px;
+    }
+    .edit-title {
+        font-size: 1.2rem;
+        margin-right: 15px; 
+    }
+
+    .btn-tag {
+        display: inline-block;
+        padding: 8px 12px;
+        font-size: 0.9rem;
+        color: #fff; 
+        background-color: #3f51b5; 
+        border: none; 
+        border-radius: 15px; 
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s, transform 0.2s;
+    }
+
+   .btn-tag {
+    position: relative; 
+    overflow: hidden; 
+}
+
+    .btn-tag:hover {
+        background-color: #0056b3; 
+        color: #fff; 
+        transform: translateY(-4px) scale(1.05); 
+        cursor: pointer; 
+        box-shadow: 0 6px 15px rgba(0, 91, 187, 0.3);
+        transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, color 0.3s ease; 
+    }
+
+    /* Ajout d'un effet de pulsation au bouton */
+    .btn-tag:before {
+        content: ''; 
+        position: absolute; 
+        top: 50%; 
+        left: 50%;
+        width: 300%;
+        height: 300%; 
+        background-color: rgba(255, 255, 255, 0.2); 
+        border-radius: 50%; 
+        transform: translate(-50%, -50%) scale(0); 
+        transition: transform 0.5s ease;
+        z-index: 0; 
+    }
+
+    .btn-tag:hover:before {
+        transform: translate(-50%, -50%) scale(1); 
+    }
+
+    .btn-tag.btn-success {
+        background-color: #28a745; 
+    }
+
+    .btn-tag.btn-success:hover {
+        background-color: #218838; 
+    }
+
+    .btn-tag.btn-danger {
+        background-color: #dc3545; 
+    }
+
+    .btn-tag.btn-danger:hover {
+        background-color: #c82333; 
+    }
+      
+  // Table
+  .animated-table {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease forwards; 
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .demo-table {
+    background-color: white; 
+    color: black; 
+    border-collapse: collapse; 
+    width: 100%;
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    overflow: hidden; 
+  }
+
+  .mat-header-cell {
+    background-color: #f5f5f5; 
+    color: black; 
+    font-weight: bold;
+    padding: 15px;
+    border-bottom: 2px solid #ddd;
+    text-align: left;
+  }
+
+  .mat-cell {
+    padding: 12px;
+    color: black; 
+    border-bottom: 1px solid #ddd; 
+  }
+   table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 4px 10px;
+
+    th, td {
+      padding: 15px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #BD46C1;
+      color: white;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    td {
+      color: #333;
+      border-bottom: 1px solid #e0e0e0;
+      cursor: pointer;
+    }
+
+    tr {
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+      }
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+  }
+
+  .mat-row:hover {
+    background-color: #f0f0f0; 
+    cursor: pointer;
+  }
+
+  .vertical-line {
+    border-right: 1px solid #ddd; 
+  }
+
+  /* Bouton transparent pour les actions d'édition */
+  .transparent-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+
+  .transparent-button:hover mat-icon {
+    color: #4a90e2; 
+  }
+
+  .width-input-max {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  .width-input-max:focus {
+    border-color: #4a90e2; 
+  }
+}
