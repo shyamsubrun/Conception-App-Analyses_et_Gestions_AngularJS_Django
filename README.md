@@ -75,9 +75,47 @@ Les données sont gérées par une base mock (JSON statique) simulant des intera
 
 ## **Wireframes et Captures d’écran**
 Les wireframes ont guidé le design initial, et les captures d’écran mettent en évidence :
-- La gestion CRUD des stocks.
-- Les graphiques interactifs avec filtres.
-- Les notifications intelligentes dans les tableaux.
+
+- Page d'accueil :
+
+
+  ![accueil](https://github.com/user-attachments/assets/9c7d794b-e487-41ba-a47a-136619f6c2fc)
+
+
+- Authentification :
+
+
+![login](https://github.com/user-attachments/assets/4c794ff2-e5d3-4c6b-8d03-a3699451ff77)
+
+  
+- La gestion CRUD des stocks :
+  
+     liste
+
+
+  ![list](https://github.com/user-attachments/assets/5a81dc25-1fb1-4fef-a5ba-c628681934d3)
+
+     liste filtrer
+
+  
+![list filtrer](https://github.com/user-attachments/assets/a8446e1c-9fed-4ca1-8f2c-cec72e8f0fb5)
+
+     liste modification :
+
+  
+![list modif](https://github.com/user-attachments/assets/678629e5-9fc2-423c-86fb-c994ee778b2a)
+
+ - Les graphiques interactifs :
+
+
+![stats](https://github.com/user-attachments/assets/786513f7-2312-4c4b-907d-f89e9262907f)
+
+- Les graphiques interactifs avec filtres :
+
+  
+![statsfilterr](https://github.com/user-attachments/assets/c837deb1-f5b9-4345-b206-f1f859acf4e2)
+
+  
 
 ---
 
