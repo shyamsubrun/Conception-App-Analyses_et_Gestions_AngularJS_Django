@@ -1,0 +1,32 @@
+<mat-toolbar color="primary" class="custom-toolbar">
+  <span class="title">
+    <mat-icon class="logo-icon">sailing</mat-icon> 
+    Bateau de Thibault
+  </span>
+  <span class="spacer"></span>
+  <a mat-button routerLink="/" class="nav-link">
+    <mat-icon>home</mat-icon> 
+    Accueil
+  </a>
+  <a mat-button routerLink="/details-produits" class="nav-link">
+    <mat-icon>inventory</mat-icon> 
+    Détails Produits
+  </a>
+  <a mat-button routerLink="/Dashboard-Component" class="nav-link">
+    <mat-icon>bar_chart</mat-icon> 
+    Stats
+  </a>
+  
+ <!-- Bouton "Se connecter" (affiché si l'utilisateur n'est pas connecté) -->
+  
+<a *ngIf="!loginService.isLoggedIn()" mat-button routerLink="/login" class="nav-link">
+  <mat-icon>login</mat-icon>
+  Se connecter
+</a>
+
+<!-- Bouton "Se déconnecter" (affiché si l'utilisateur est connecté) -->
+<a *ngIf="loginService.isLoggedIn()" mat-button (click)="loginService.onLogout()" class="nav-link">
+  <mat-icon>logout</mat-icon>
+  Se déconnecters
+</a>
+</mat-toolbar>

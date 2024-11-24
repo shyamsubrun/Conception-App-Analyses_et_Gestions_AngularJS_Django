@@ -1,0 +1,148 @@
+<div class="container-detailsproduct">
+    <section class="product-details">
+        <p class="section-title">
+            <i class="fa-solid fa-fish-fins icon"></i> 
+            Tableau des détails des produits
+        </p>
+        <div class="product-info">
+            <p>
+            Cette section vous permet de consulter les détails des produits en stock, incluant les catégories, les prix, et les quantités disponibles. Utilisez les filtres ci-dessous pour affiner vos recherches.
+            </p>
+        </div>
+    </section>
+
+    
+
+    <!-- Filtre -->
+     <div class="filtre-edit-cont">
+        <div class="filter-container">
+            <h4 class="filter-title">Filtrer par Catégorie :</h4>
+            <div class="chip-list" aria-label="Category selection">
+                <div
+                class="filter-chip"
+                *ngFor="let category of categories"
+                [class.selected]="selectedCategory === category.id"
+                (click)="filterByCategory(category.id)">
+                {{ category.name }}
+                </div>
+            </div>
+        </div>
+        <!-- Edit All-->
+        <div class="edit-buttons">
+            <ng-container>
+                <ng-container *ngIf="!product.isEditing; else editField">
+                    <button class="btn btn-tag" (click)="enableEditModeForAll()">
+                        <i class="fas fa-edit"></i> Edit All
+                    </button>
+                </ng-container>
+
+                <ng-template #editField>
+                    <button class="btn btn-tag btn-success" (click)="saveAllProducts()">
+                        <i class="fas fa-save"></i> Save All
+                    </button>
+                    <button class="btn btn-tag btn-danger" (click)="cancelAllEdits()">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                </ng-template>
+            </ng-container>
+        </div>
+    </div>
+    <!-- Table -->
+    <table mat-table [dataSource]="productsList" class="mat-elevation-z8 demo-table shadow-light animated-table">
+        <ng-container matColumnDef="name">
+            <th class="vertical-line --primary-blue-title" mat-header-cell *matHeaderCellDef>Name</th>
+            <td class="vertical-line" mat-cell *matCellDef="let product" [style.border]="!product.name ? '1px solid #bf1717' : ''" [attr.title]="!product.name ? 'Erreur' : null">
+                {{ product.name }}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="price">
+            <th class="vertical-line text-center --primary-blue-title" mat-header-cell *matHeaderCellDef>Price</th>
+            <td class="vertical-line text-center" mat-cell *matCellDef="let product" [style.border]="product.price < 0 ? '1px solid #bf1717' : ''" [attr.title]="product.price < 0 ? 'Erreur' : null">
+                <ng-container *ngIf="!product.isEditing; else priceEditField">
+                    {{ product.price }}
+                </ng-container>
+                <ng-template #priceEditField>
+                    <form (submit)="saveProduct(product); toggleEditMode(product)">
+                        <input type="number" class="width-input-max" [(ngModel)]="product.price" name="price" required>
+                    </form>
+                </ng-template>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="sale">
+            <th class="vertical-line text-center --primary-blue-title" mat-header-cell *matHeaderCellDef>Sale</th>
+            <td class="vertical-line text-center" mat-cell *matCellDef="let product">{{ product.sale }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="discount">
+            <th class="vertical-line text-center --primary-blue-title" mat-header-cell *matHeaderCellDef>Discount</th>
+           <td class="vertical-line text-center" mat-cell *matCellDef="let product" [ngStyle]="{'background-color': (product.discount < 0 || product.discount > 100) ? '#ffcccc' : '','color': (product.discount < 0 || product.discount > 100) ? '#a60000' : ''}" [attr.title]="(product.discount < 0 || product.discount > 100) ? 'Erreur' : null">              
+                <ng-container *ngIf="!product.isEditing; else discountEditField">
+                    {{ product.discount }}%
+                </ng-container>
+                <ng-template #discountEditField>
+                    <form (submit)="saveProduct(product); toggleEditMode(product)">
+                        <input type="number" [(ngModel)]="product.discount" name="discount" required max="100">
+                        <span *ngIf="product.isEditing">%</span>
+                        <div *ngIf="product.discount > 100" class="error-message">La valeur maximale est 100%</div>
+                    </form>
+                </ng-template>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="price_on_sale">
+            <th class="vertical-line text-center --primary-blue-title" mat-header-cell *matHeaderCellDef>Price on Sale</th>
+            <td class="vertical-line text-center" mat-cell *matCellDef="let product">{{ calculatePercentageDiscount(product) }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="quantityInStock">
+            <th class="vertical-line text-center --primary-blue-title" mat-header-cell *matHeaderCellDef>Quantity In Stock</th>
+            <td class="vertical-line text-center" mat-cell *matCellDef="let product">
+                <ng-container *ngIf="!product.isEditing; else quantityEditField">
+                    {{ product.quantityInStock }}
+                </ng-container>
+                <ng-template #quantityEditField>
+                    <form (submit)="saveProduct(product); toggleEditMode(product)">
+                        <label><input type="radio" [(ngModel)]="product.operationType" value="add" name="operationType" required> Ajouter</label>
+                        <label><input type="radio" [(ngModel)]="product.operationType" value="remove" name="operationType" required> Retirer</label>
+                        <input type="number" [(ngModel)]="product.stockChange" name="stockChange" min="1" placeholder="Entrez la quantité" (focus)="resetStockChange(product)" required>
+                        <input type="number" [(ngModel)]="product.operationPrice" name="operationPrice" min="0" placeholder="Entrez le prix d'opération/1"  required>
+                        <div *ngIf="product.stockChange < 0" class="error-message">La valeur minimale est 0</div>
+                    </form>
+                </ng-template>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="comments">
+            <th class="vertical-line text-center --primary-blue-title" mat-header-cell *matHeaderCellDef>Comments</th>
+            <td class="vertical-line" mat-cell *matCellDef="let product">{{ product.comments }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="edit">
+            <th class="vertical-line text-center --primary-blue-title font-weight-bold" mat-header-cell *matHeaderCellDef>Edit</th>
+            <td class="vertical-line text-center" mat-cell *matCellDef="let product">
+                <ng-container *ngIf="product.isEditing; else editIcon">
+                    <form (submit)="saveProduct(product); toggleEditMode(product)">
+                        <div style="display: flex;">
+                            <button class="transparent-button" type="submit">
+                                <mat-icon style="color: #2aa053;">save</mat-icon>
+                            </button>
+                            <button class="transparent-button" type="button" (click)="toggleEditMode(product)">
+                                <mat-icon style="color: #585958;">cancel</mat-icon>
+                            </button>
+                        </div>
+                    </form>
+                </ng-container>
+                <ng-template #editIcon>
+                    <button mat-button class="transparent-button" (click)="toggleEditMode(product)">
+                        <mat-icon class="blue-icon">edit</mat-icon>
+                    </button>
+                </ng-template>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="['name', 'price', 'sale', 'discount', 'price_on_sale', 'quantityInStock', 'comments', 'edit']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['name', 'price', 'sale', 'discount', 'price_on_sale', 'quantityInStock', 'comments', 'edit']"></tr>
+    </table>
+</div>

@@ -1,0 +1,41 @@
+div {
+  display: grid;
+  grid-template-rows: auto 1fr auto;  // Navbar en haut, contenu principal (et side-nav) au centre, footer en bas
+  grid-template-columns: 250px 1fr;   // Side-nav (250px de largeur) à gauche et contenu à droite
+  min-height: 100vh;  // Pour que le contenu occupe toute la hauteur de la fenêtre
+
+  // Navbar (en haut, toute la largeur)
+  app-navbar {
+    grid-column: 1 / 3;  // Navbar occupe toute la largeur (side-nav + contenu)
+    background-color: #333;
+    color: white;
+    padding: 1rem;
+  }
+
+  // Side Navigation (à gauche)
+  app-side-nav {
+    grid-row: 2 / 3; /* Side-nav dans la deuxième ligne (en dessous du header si tu en as un) */
+    grid-column: 1 / 2; /* Side-nav dans la première colonne */
+    background-color: #080808;
+    color: #ffffff;
+    padding: 1rem;
+    height: 100%; /* S'assurer qu'il occupe toute la hauteur */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  }
+
+  // Contenu principal (à droite du side-nav)
+  app-tableau {
+    grid-row: 2 / 3;  // Dans la deuxième ligne (sous la navbar)
+    grid-column: 2 / 3;  // Contenu dans la deuxième colonne
+    padding: 2rem;
+  }
+
+  // Footer (en bas, toute la largeur)
+  app-footer {
+    grid-column: 1 / 3;  // Footer occupe toute la largeur (side-nav + contenu)
+    background-color: #333;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+  }
+}
